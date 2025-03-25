@@ -1,0 +1,44 @@
+table {
+    border-collapse: collapse;
+    border-style: hidden;
+    width:100%
+}
+
+tr {
+    border-collapse: collapse;
+}
+
+tr:nth-child(2n) {
+    background-color: rgba(43, 178, 255, 0.27);
+}
+
+td {
+    border-collapse: collapse;
+    border: 7px solid #003452;
+    height: 50px;
+    text-align: center;
+    font-size: 2vw;
+    font-weight: bold;
+    color: black;
+}
+
+.arrow {
+    width: 40%;
+    height: 80%;
+    margin-top: 6%;
+}
+
+.decoration_arrow1 {
+    top: 2.5vw;
+    position: relative;
+    width: 35%;
+    height: 5vw;
+}
+
+.decoration_arrow2 {
+    top: 2.5vw;
+    position: relative;
+    width: 35%;
+    height: 5vw;
+    right:-29.5vw;
+}
