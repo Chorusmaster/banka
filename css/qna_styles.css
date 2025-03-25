@@ -1,0 +1,64 @@
+#qna_title {
+    margin-top: 3vw;
+}
+
+.qna_container {
+    margin-left: 9vw !important;
+    width: 80vw !important;
+    box-sizing: border-box;
+    padding: 2%;
+}
+
+.message {
+    width: 70%;
+    padding: 2%;
+    font-size: 1.5vw;
+    font-weight: bold;
+    border: 0.4vw solid black;
+    border-radius: 2vw;
+    color: black;
+    margin-bottom: 3vw;
+}
+
+.my_message {
+    margin-right: 30%;
+    background-color: rgba(0, 212, 255, 0.22);
+}
+
+.answer_message {
+    margin-left: 24%;
+    background-color: rgba(188, 188, 188, 0.22);
+}
+
+.date {
+    margin-left: 80%;
+    color: #595959;
+}
+
+#qna_form_div {
+    padding: 1vw;
+    width: 77.2vw;
+    margin: 0 -2vw -2vw -2vw;
+    background-color: rgba(0, 110, 183, 0.44);
+    border-top: 0.4vw solid #003452;
+    border-radius: 0 0 1.5vw 1.5vw;
+}
+
+input {
+    margin-top: -1vw;
+    height: 3vw;
+    font-size: 25px;
+    border: 0.4vw solid #003452;
+    border-radius: 1.5vw;
+}
+
+#text_input {
+    width: 90%;
+    background: none;
+}
+
+#send_input {
+    position: relative;
+    top: 1.3vw;
+    right: -0.8vw;
+}
