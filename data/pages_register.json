@@ -1,0 +1,23 @@
+{
+  "index": {
+    "css": [
+      "css/general_styles.css",
+      "css/index_styles.css"
+    ],
+    "nav_name": "DOMOV"
+  },
+  "history": {
+    "css": [
+      "css/general_styles.css",
+      "css/history_styles.css"
+    ],
+    "nav_name": "HISTÓRIA"
+  },
+  "qna": {
+    "css": [
+      "css/general_styles.css",
+      "css/qna_styles.css"
+    ],
+    "nav_name": "OTÁZKY"
+  }
+}
