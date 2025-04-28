@@ -15,7 +15,7 @@ include "./parts/header.php";
             <div class="date">24.03.2025</div>
         </div>
         <div class="message answer_message">
-            Počkajte, prosím na odpoveď administratora
+            Počkajte, prosím, na odpoveď administratora
             <div class="date">24.03.2025</div>
         </div>
         <div class="message answer_message">

@@ -16,14 +16,28 @@
         </div>
 
         <div id="card_info">
-            <div id="balance">100€</div>
+            <div id="balance">
+                <?php
+                    $path = __DIR__ . "\data\currencies.json";
+                    $data = json_decode(file_get_contents($path), true);
+                    $currency = isset($_GET['currency']) ? $_GET['currency'] : 'eur';
+                    echo ($data[$currency][0] * 100);
+                    echo ($data[$currency][1]);
+                ?>
+            </div>
             <div id="currencies">
-                <button class="chosen">€</button>
-                <button>$</button>
-                <button>£</button>
-                <button>¥</button>
-                <button>₹</button>
-                <button>₴</button>
+                <button <?php if(!isset($_GET['currency']) || ($_GET['currency'] == 'eur')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=eur', '_self')">€</button>
+                <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'usd')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=usd', '_self')">$</button>
+                <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'gdp')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=gdp', '_self')">£</button>
+                <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'jpy')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=jpy', '_self')">¥</button>
+                <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'inr')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=inr', '_self')">₹</button>
+                <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'uah')) echo('class="chosen"') ?>
+                        onclick="window.open('index.php?currency=uah', '_self')">₴</button>
             </div>
             <button>PREVOD PEŇAZÍ</button>
         </div>
