@@ -19,5 +19,11 @@
       "css/qna_styles.css"
     ],
     "nav_name": "OTÁZKY"
+  },
+  "registration": {
+    "css": [
+      "css/general_styles.css",
+      "css/registration_styles.css"
+    ]
   }
 }

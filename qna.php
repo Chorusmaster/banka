@@ -1,4 +1,11 @@
 <?php
+    include "./parts/head.php";
+    include "./parts/header.php";
+?>
+
+<main>
+    <h2 id="qna_title">Otázky a odpovede</h2>
+
 include "./parts/head.php";
 ?>
 
