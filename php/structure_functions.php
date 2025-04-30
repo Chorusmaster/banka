@@ -30,7 +30,7 @@ function printNavBar()
 
     if (($page_name = validatePagename()) !== "none" && $page_name !== "registration") {
         foreach ($page_keys as $key) {
-           if ($key != "registration") {
+            if ($key != "registration") {
                 if ($key == $page_name) echo "<a class='chosen' href = '" . $key . '.php' . "'>" . $page_data[$key]["nav_name"] . "</a></li>";
                 else echo "<a href = " . $key . '.php' . ">" . $page_data[$key]["nav_name"] . "</a></li>";
             }
@@ -40,10 +40,11 @@ function printNavBar()
     } else if ($page_name === "registration") {
         echo "<a class='chosen' href = './registration.php'>" . "REGISTRÁCIA" . "</a></li>";
         echo "<a id='low_padding' href = './registration.php'>" . "PRIHLÁSENIE" . "</a></li>";
-    if (($page_name = validatePagename()) !== "none") {
-        foreach ($page_keys as $key) {
-            if ($key == $page_name) echo "<a class='chosen' href = '" . $key . '.php' . "'>" . $page_data[$key]["nav_name"] . "</a></li>";
-            else echo "<a href = " . $key . '.php' . ">" . $page_data[$key]["nav_name"] . "</a></li>";
+        if (($page_name = validatePagename()) !== "none") {
+            foreach ($page_keys as $key) {
+                if ($key == $page_name) echo "<a class='chosen' href = '" . $key . '.php' . "'>" . $page_data[$key]["nav_name"] . "</a></li>";
+                else echo "<a href = " . $key . '.php' . ">" . $page_data[$key]["nav_name"] . "</a></li>";
+            }
         }
     }
 }
