@@ -3,6 +3,10 @@
     include "./parts/header.php";
 ?>
 
+<?php
+    include "./parts/header.php";
+?>
+
 <main>
     <div>
         <div id="card_div">
