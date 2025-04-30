@@ -6,16 +6,6 @@
 <main>
     <h2 id="qna_title">Otázky a odpovede</h2>
 
-include "./parts/head.php";
-?>
-
-<?php
-include "./parts/header.php";
-?>
-
-<main>
-    <h2 id="qna_title">Otázky a odpovede</h2>
-
     <div class="qna_container" id="container">
         <div class="message my_message">
             Čo robiť?
