@@ -1,6 +1,8 @@
 <?php
 include "./parts/head.php";
 include "./parts/header.php";
+
+$is_login = isset($_GET["type"]) && $_GET["type"] == "login";
 ?>
 
     <div class="banner">
@@ -10,8 +12,8 @@ include "./parts/header.php";
     <div>
         <hr class="hr_decoration">
 
-        <h2>Zaregistrovať sa</h2>
-        <form class="registration_container" id="container">
+        <h2><?php echo $is_login ? "Prihlásiť sa" : "Zaregistrovať sa"?></h2>
+        <form class="registration_container" method="post" action="forms/<?php echo $is_login ? "login" : "register"?>.php" id="container">
 
             <div class="input_container">
                 <div class="input_block">
@@ -28,7 +30,9 @@ include "./parts/header.php";
                 </div>
             </div>
 
-            <div class="input_container">
+            <?php
+                if(!$is_login) echo '
+                <div class="input_container">
                 <div class="input_block">
                     <label for="name">meno</label>
                     <input type="text" name="name">
@@ -41,7 +45,8 @@ include "./parts/header.php";
                     <label for="birth">dátum narodenia</label>
                     <input type="date" name="birth">
                 </div>
-            </div>
+                </div>'
+            ?>
 
             <input type="image" src="./img/ok_button.png" id="ok_input">
         </form>

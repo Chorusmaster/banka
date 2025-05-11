@@ -8,7 +8,7 @@
     </nav>
 
     <?php
-        $page_name = basename($_SERVER['REQUEST_URI'], ".php");
+        $page_name = basename(explode("?", $_SERVER['REQUEST_URI'])[0], ".php");
         if ($page_name != "registration") {
             echo('<div class="banner">');
             echo('<h1>ŽBANKA</h1>');

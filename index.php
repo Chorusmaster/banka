@@ -1,14 +1,24 @@
 <?php
-    include "./parts/head.php";
-    include "./parts/header.php";
+    include_once "./parts/head.php";
+    include_once (__DIR__ . "/classes/Account.php");
+    include_once "./parts/header.php";
+
+    $user = new Account();
+    $userdata = ($user->getData())[0];
 ?>
 
 <main>
     <div>
         <div id="card_div">
-            <div id="card_number">1111 1111 1111 1111</div>
-            <div id="customer_name">Gena Bukin</div>
-            <div id="expiration_date">10/28</div>
+            <?php
+                $number = $userdata["card_number"];
+                $formatted_number = substr($number, 0, 4) . " " . substr($number, 4, 4) . " " . substr($number, 8, 4) . " " . substr($number, 12, 4);
+                $date = substr($userdata["expiration_date"], 5, 2) . "/" .substr($userdata["expiration_date"], 2, 2);
+
+                echo '<div id="card_number">' . $formatted_number . '</div>';
+                echo '<div id="customer_name">' . $userdata["first_name"] . " " . $userdata["last_name"] . '</div>';
+                echo '<div id="expiration_date">' . $date . '</div>'
+            ?>
             <img id="card" src="./img/card.png" alt="Kreditka">
         </div>
 
@@ -18,7 +28,7 @@
                     $path = __DIR__ . "\data\currencies.json";
                     $data = json_decode(file_get_contents($path), true);
                     $currency = isset($_GET['currency']) ? $_GET['currency'] : 'eur';
-                    echo ($data[$currency][0] * 100);
+                    echo ($data[$currency][0] * $userdata["balance"]);
                     echo ($data[$currency][1]);
                 ?>
             </div>
