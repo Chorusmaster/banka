@@ -33,11 +33,11 @@
 }
 
 #card_info {
-    display: inline-block;
     width: 25vw;
     height: 24vw;
     margin: 5vw 0;
     position: absolute;
+    display: inline-block;
 }
 
 #balance {
@@ -140,4 +140,80 @@
 
 .offer_payment button:hover {
     background-color: #3a85c8;
+}
+
+#transfer-container{
+    display: inline-block;
+    width: 34vw;
+    height: 19.2vw;
+    margin: 5vw 0;
+    position: absolute;
+}
+
+.transfer {
+    width: 100%;
+    height: 100%;
+    padding: 2vw;
+}
+
+.transfer h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.transfer label {
+    color: #003452;
+    display: block;
+    font-size: 1.8rem;
+}
+
+.transfer input {
+    width: 100%;
+    height: 15%;
+}
+
+.transfer input {
+    width: 97%;
+    height: 2.4vw;
+    font-size: 25px;
+    border: 0.4vw solid #003452;
+    border-radius: 1vw;
+    background-color: rgba(43, 178, 255, 0.27);
+}
+
+.transfer_button {
+    display: inline-block;
+    width: 44%;
+    height: 2.8vw;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 0.5vw;
+    border: 0.3vw solid black;
+    background-color: #003c7e;
+    color: white;
+    font-size: 1.8vw;
+    font-weight: 700;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.transfer #ok {
+    margin-top: 10px;
+    border-width: 0.3vw;
+    border-radius: 0.8vw;
+    font-size: 1.6vw;
+    width: 46%;
+    margin-left: 7%;
+    height: 3.7vw;
+    padding-bottom: 8px;
+    background-color: #4897df;
+    text-decoration: none !important;
+}
+
+.transfer_button:hover {
+    background-color: #04366c;
+}
+
+.transfer #ok:hover {
+    background-color: #3b89cd;
 }

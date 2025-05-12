@@ -6,7 +6,7 @@
 <main>
     <h2 id="qna_title">Otázky a odpovede</h2>
 
-    <div class="qna_container" id="container">
+    <div id="container" class="qna_container">
         <div class="message my_message">
             Čo robiť?
             <div class="date">24.03.2025</div>
