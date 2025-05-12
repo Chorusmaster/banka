@@ -1,10 +1,10 @@
 <?php
     include_once "./parts/head.php";
-    include_once (__DIR__ . "/classes/Account.php");
+    include_once (__DIR__ . "/classes/Operations.php");
     include_once "./parts/header.php";
 
-    $user = new Account();
-    $userdata = ($user->getData())[0];
+    $operations = new Operations();
+    $userdata = ($operations->getData())[0];
 ?>
 
 <main>
@@ -22,16 +22,35 @@
             <img id="card" src="./img/card.png" alt="Kreditka">
         </div>
 
-        <div id="card_info">
+        <?php
+            if (isset($_GET['transfer'])) {
+                echo '
+                    <div id="transfer-container">
+                        <form id="container" class="transfer" method="POST" action="./forms/transfer.php">
+                            <h2>Prevod</h2>
+                            <label for="to">Čislo</label>
+                            <input type="text" id="to" name="to">
+                            <label for="amount">Suma</label>
+                            <input type="text" id="amount" name="amount">
+                            <a href="index.php" class="transfer_button">Zrušiť</a>
+                            <input class="transfer_button" type="submit" id="ok">
+                        </form>
+                    </div>
+                ';
+            }
+        ?>
+
+        <div id="card_info" <?php if (isset($_GET['transfer'])) echo "style='display: none'"?>>
             <div id="balance">
                 <?php
                     $path = __DIR__ . "\data\currencies.json";
                     $data = json_decode(file_get_contents($path), true);
                     $currency = isset($_GET['currency']) ? $_GET['currency'] : 'eur';
-                    echo ($data[$currency][0] * $userdata["balance"]);
+                    echo (round($data[$currency][0] * $userdata["balance"], 1));
                     echo ($data[$currency][1]);
                 ?>
             </div>
+
             <div id="currencies">
                 <button <?php if(!isset($_GET['currency']) || ($_GET['currency'] == 'eur')) echo('class="chosen"') ?>
                         onclick="window.open('index.php?currency=eur', '_self')">€</button>
@@ -46,7 +65,7 @@
                 <button <?php if(isset($_GET['currency']) && ($_GET['currency'] == 'uah')) echo('class="chosen"') ?>
                         onclick="window.open('index.php?currency=uah', '_self')">₴</button>
             </div>
-            <button>PREVOD PEŇAZÍ</button>
+            <button onclick="window.open('index.php?transfer=true', '_self')">PREVOD PEŇAZÍ</button>
         </div>
     </div>
 
