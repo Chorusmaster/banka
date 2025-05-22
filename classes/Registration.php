@@ -27,7 +27,7 @@ class Registration extends Database
 
                 $card_id = $this->connection->lastInsertId();
 
-                $sql = "INSERT INTO accounts (account_id, email, login, password, first_name, last_name, birth_date, card_id) values (NULL, ?, ?, ?, ?, ?, ?, ?)";
+                $sql = "INSERT INTO accounts (account_id, email, login, password, first_name, last_name, birth_date, isAdmin, card_id) values (NULL, ?, ?, ?, ?, ?, ?, 0, ?)";
                 $statement = $this->connection->prepare($sql);
 
                 for ($i = 1; $i <= count($reg_data); $i++) {

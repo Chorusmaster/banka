@@ -33,6 +33,29 @@
 .date {
     margin-left: 80%;
     color: #595959;
+    margin-top: 20px;
+}
+
+.date img {
+    position: absolute;
+    margin-top: -2px;
+    margin-left: -2.8vw;
+    width: 2vw;
+    height: 2vw;
+}
+
+.update {
+    margin-left: -5.4vw !important;
+}
+
+.from {
+    position: absolute;
+    margin-left: -42vw !important;
+}
+
+.to {
+    position: absolute;
+    margin-left: -42vw !important;
 }
 
 #qna_form_div {
