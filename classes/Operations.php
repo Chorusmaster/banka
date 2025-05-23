@@ -31,8 +31,10 @@ class Operations extends Database
         return $statement->fetchAll();
     }
 
-    private function changeAmount($amount, $number = null) {
+    public function changeAmount($amount, $number = null) {
         $data = $this->getData($number)[0];
+        if(!$data) throw new Exception("Nesprávne číslo karty");
+
         $current_amount = $data["balance"];
         if ($current_amount + $amount >= 0) $new_amount = $current_amount + $amount;
         else throw new Exception("The balance is too low");
@@ -51,14 +53,22 @@ class Operations extends Database
     }
 
     public function transfer($amount, $receiver) {
-        $sender_id = $this->changeAmount(-$amount);
-        $reciever_id = $this->changeAmount($amount, $receiver);
+        try {
+            $this->connection->beginTransaction();
 
-        $this->addNotation($amount, $sender_id, $reciever_id);
+            $sender_id = $this->changeAmount(-$amount);
+            $reciever_id = $this->changeAmount($amount, $receiver);
+            $this->addNotation($amount, $sender_id, $reciever_id);
+
+            $this->connection->commit();
+        } catch (Exception $e) {
+            $this->connection->rollBack();
+        }
     }
 
-    public function addNotation($amount, $sender_id, $reciever_id) {
-        $type = "transaction";
+    public function addNotation($amount, $sender_id, $reciever_id, $type=null) {
+        if ($type == null) {$type = "transaction";}
+        else {$reciever_id = null;}
 
         $sql = "INSERT INTO transactions (transaction_id, amount, type, sender_card, reciever_card, date) VALUES (NULL, ?, ?, ?, ?, NOW())";
         $statement = $this->connection->prepare($sql);
@@ -79,11 +89,12 @@ class Operations extends Database
                 ra.first_name AS reciever_first_name, ra.last_name AS reciever_last_name,
                 sa.first_name AS sender_first_name, sa.last_name AS sender_last_name
                 FROM transactions t 
-                INNER JOIN cards r ON t.reciever_card = r.card_id 
+                LEFT OUTER JOIN cards r ON t.reciever_card = r.card_id 
                 INNER JOIN cards s ON t.sender_card = s.card_id 
-                INNER JOIN accounts ra ON t.reciever_card = ra.card_id
+                LEFT OUTER JOIN accounts ra ON t.reciever_card = ra.card_id
                 INNER JOIN accounts sa ON t.sender_card = sa.card_id
-                WHERE r.card_id = ? OR s.card_id = ?;";
+                WHERE r.card_id = ? OR s.card_id = ?
+                ORDER BY date";
         $statement = $this->connection->prepare($sql);
 
         $statement->bindParam(1, $card_id);
