@@ -1,0 +1,20 @@
+{
+  "scam": {
+    "name": "Podvodníci corp.",
+    "description": "Bojite sa, že vám ukradnú peniaze? Pošlite ich sámi! Podporte domácich podvodníkov!",
+    "img": "./img/offers/scam_offer.png",
+    "price": 20
+  },
+  "travel_agency": {
+    "name": "MaxCesta",
+    "description": "Vychutnajte si nádhernú dovolenku spolu s cestovnou kanceláriou MaxCesta",
+    "img": "./img/offers/travel_agency_offer.png",
+    "price": 180
+  },
+  "insurance": {
+    "name": "Super poistenie",
+    "description": "Toto je super ultra mega dobré, lacné a kvalitné poistenie. Od čoho? Ani netusím.",
+    "img": "./img/offers/insurance_offer.png",
+    "price": 999
+  }
+}

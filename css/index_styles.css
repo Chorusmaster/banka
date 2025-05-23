@@ -125,8 +125,8 @@
     color: #CBFEFF;
 }
 
-.offer_payment button {
-    width: 60%;
+.offer_payment input {
+    width: 14vw;
     height: 3.5vw;
     vertical-align: middle;
     border-radius: 0.5vw;
@@ -138,7 +138,11 @@
     margin-right: 2%;
 }
 
-.offer_payment button:hover {
+.offer_payment form {
+    display: inline-block;
+}
+
+.offer_payment input:hover {
     background-color: #3a85c8;
 }
 
