@@ -18,15 +18,15 @@ $is_login = isset($_GET["type"]) && $_GET["type"] == "login";
             <div class="input_container">
                 <div class="input_block">
                     <label for="email">email</label>
-                    <input type="email" name="email">
+                    <input type="email" id="email" name="email">
                 </div>
                 <div class="input_block">
                     <label for="login">login</label>
-                    <input type="text" name="login">
+                    <input type="text" id="login" name="login">
                 </div>
                 <div class="input_block">
                     <label for="password">heslo</label>
-                    <input type="password" name="password">
+                    <input type="password" id="password" name="password">
                 </div>
             </div>
 
@@ -35,15 +35,15 @@ $is_login = isset($_GET["type"]) && $_GET["type"] == "login";
                 <div class="input_container">
                 <div class="input_block">
                     <label for="name">meno</label>
-                    <input type="text" name="name">
+                    <input type="text" id="name" name="name">
                 </div>
                 <div class="input_block">
                     <label for="surname">priezvisko</label>
-                    <input type="text" name="surname">
+                    <input type="text" id="surname" name="surname">
                 </div>
                 <div class="input_block">
                     <label for="birth">dátum narodenia</label>
-                    <input type="date" name="birth">
+                    <input type="date" id="birth" name="birth">
                 </div>
                 </div>'
             ?>
@@ -57,6 +57,16 @@ $is_login = isset($_GET["type"]) && $_GET["type"] == "login";
     <div class="banner">
         <br><br>
     </div>
+
+    <?php
+        include_once "./php/error_catch.php";
+    ?>
+
+    <script>
+        window.isLogin = <?php echo($is_login);?>
+    </script>
+
+    <script src="js/register_validation.js"></script>
 
 <?php
 include "./parts/footer.php";
