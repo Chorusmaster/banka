@@ -30,6 +30,7 @@ class Messages extends Database
         $statement->bindParam(3, $receiver_id);
 
         $statement->execute();
+        $this->disconnect();
     }
 
     public function getAdmin() {
@@ -50,7 +51,10 @@ class Messages extends Database
         $statement->bindParam(2, $id);
 
         $statement->execute();
-        return $statement->fetchAll();
+        $result = $statement->fetchAll();
+
+        $this->disconnect();
+        return $result;
     }
 
     public function validateOwner($id) {
@@ -72,6 +76,7 @@ class Messages extends Database
 
             $statement->execute();
         }
+        $this->disconnect();
     }
 
     public function getMessage($id) {
@@ -97,6 +102,7 @@ class Messages extends Database
 
             $statement->execute();
         }
+        $this->disconnect();
     }
 
     public function getUserName($id) {

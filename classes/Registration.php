@@ -14,31 +14,42 @@ class Registration extends Database
         $db_data = $this->getData($reg_data[0], $reg_data[1], false);
         try {
             if ($db_data != null) {
-                throw new InvalidArgumentException("User already exists");
+                throw new InvalidArgumentException("Používateľ už existuje");
             } else {
                 $reg_data[2] = password_hash($reg_data[2], PASSWORD_BCRYPT);
                 $code = rand(100, 999);
                 $card_number = ($this->getLastCardNumber())["card_number"] + 1;
 
-                $sql = "INSERT INTO cards (card_id, card_number, expiration_date, code, balance) VALUES(NULL, $card_number, DATE_ADD(CURDATE(), INTERVAL 5 YEAR), $code, 0);";
-                $statement = $this->connection->prepare($sql);
+                try {
+                    $this->connection->beginTransaction();
 
-                $statement->execute();
+                    $sql = "INSERT INTO cards (card_id, card_number, expiration_date, code, balance) VALUES(NULL, ?, DATE_ADD(CURDATE(), INTERVAL 5 YEAR), ?, 0);";
+                    $statement = $this->connection->prepare($sql);
 
-                $card_id = $this->connection->lastInsertId();
+                    $statement->bindParam(1, $card_number);
+                    $statement->bindParam(2, $code);
 
-                $sql = "INSERT INTO accounts (account_id, email, login, password, first_name, last_name, birth_date, isAdmin, card_id) values (NULL, ?, ?, ?, ?, ?, ?, 0, ?)";
-                $statement = $this->connection->prepare($sql);
+                    $statement->execute();
 
-                for ($i = 1; $i <= count($reg_data); $i++) {
-                    $statement->bindParam($i, $reg_data[$i - 1]);
+                    $card_id = $this->connection->lastInsertId();
+
+                    $sql = "INSERT INTO accounts (account_id, email, login, password, first_name, last_name, birth_date, isAdmin, card_id) values (NULL, ?, ?, ?, ?, ?, ?, 0, ?)";
+                    $statement = $this->connection->prepare($sql);
+
+                    for ($i = 1; $i <= count($reg_data); $i++) {
+                        $statement->bindParam($i, $reg_data[$i - 1]);
+                    }
+                    $statement->bindParam($i, $card_id);
+
+                    $statement->execute();
+
+                    $user_id = $this->connection->lastInsertId();
+                    $this->add_session($user_id);
+
+                    $this->connection->commit();
+                } catch (Exception $e) {
+                    $this->connection->rollBack();
                 }
-                $statement->bindParam($i, $card_id);
-
-                $statement->execute();
-
-                $user_id = $this->connection->lastInsertId();
-                $this->add_session($user_id);
             }
         } catch (PDOException $e) {
             echo "Vyskytla sa chyba pri práci z databázou: " . $e->getMessage();
@@ -51,10 +62,10 @@ class Registration extends Database
         $db_data = $this->getData($log_data[0], $log_data[1], true);
         try {
             if ($db_data == null) {
-                throw new InvalidArgumentException("This user does'nt exists");
+                throw new InvalidArgumentException("Takýto používateľ neexistuje");
             } else {
                 if(!password_verify($log_data[2], $db_data["password"])) {
-                    throw new InvalidArgumentException("Invalid password");
+                    throw new InvalidArgumentException("Nesprávne heslo");
                 }
             }
 
@@ -71,8 +82,8 @@ class Registration extends Database
         $sql = "SELECT * FROM accounts WHERE login=:login " . ($isStrict ? "AND" : "OR") . " email=:email";
         $statement = $this->connection->prepare($sql);
 
-        $statement->bindParam(':email', $email);
         $statement->bindParam(':login', $login);
+        $statement->bindParam(':email', $email);
 
         $statement->execute();
         return $statement->fetch();

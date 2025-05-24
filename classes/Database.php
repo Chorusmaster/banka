@@ -30,7 +30,7 @@ class Database
         return $this->conn;
     }
 
-    protected function disconnect() {
+    public function disconnect() {
         $this->conn = null;
     }
 }

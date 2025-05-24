@@ -21,8 +21,6 @@
 
         validatePagename(true);
     ?>
-    <link rel="stylesheet" type="text/css" href="css/general_styles.css">
-    <link rel="stylesheet" type="text/css" href="css/index_styles.css">
 
     <title>Žbanka</title>
 </head>

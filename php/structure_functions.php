@@ -18,7 +18,7 @@ function validatePagename($getCSS=false) {
         }
     }
 
-    if (!$isValid) return false;
+    if (!$isValid) return "none";
 }
 
 function printNavBar()
@@ -75,7 +75,7 @@ function printHistory() {
     $data_count = count($data);
     $blank_rows_count = 5 - $data_count;
 
-    $card = $operations->getData()[0]["card_number"];
+    $card = $operations->getData()["card_number"];
 
     for ($i = 0; $i < $data_count; $i++) {
         if ($data[$i]["type"] == "transaction") {

@@ -28,16 +28,22 @@ class Operations extends Database
         $statement->bindParam(1, $param);
 
         $statement->execute();
-        return $statement->fetchAll();
+        return $statement->fetch();
     }
 
     public function changeAmount($amount, $number = null) {
-        $data = $this->getData($number)[0];
-        if(!$data) throw new Exception("Nesprávne číslo karty");
+        $data = $this->getData($number);
+        if(!$data) {
+            $_SESSION["error"] = "Nesprávne číslo karty";
+            throw new Exception("Nesprávne číslo karty");
+        }
 
         $current_amount = $data["balance"];
         if ($current_amount + $amount >= 0) $new_amount = $current_amount + $amount;
-        else throw new Exception("The balance is too low");
+        else {
+            $_SESSION["error"] = "Nemáte dostatočnú sumu na účte";
+            throw new Exception("Nemáte dostatočnú sumu na účte");
+        }
 
         if ($number == null) $number = $data["card_number"];
 
@@ -63,6 +69,8 @@ class Operations extends Database
             $this->connection->commit();
         } catch (Exception $e) {
             $this->connection->rollBack();
+        } finally {
+            $this->disconnect();
         }
     }
 
@@ -82,7 +90,7 @@ class Operations extends Database
     }
 
     public function getHistory() {
-        $card_id = $this->getData()[0]["card_id"];
+        $card_id = $this->getData()["card_id"];
 
         $sql = "SELECT t.amount AS amount, t.date AS date, t.type AS type, 
                 s.card_number AS sender, r.card_number AS reciever,
@@ -101,13 +109,9 @@ class Operations extends Database
         $statement->bindParam(2, $card_id);
 
         $statement->execute();
-        return $statement->fetchAll();
-    }
+        $result = $statement->fetchAll();
 
-    private function reconnect() {
-        if (!$this->getConnection()) {
-            $this->connect();
-            $this->connection = $this->getConnection();
-        }
+        $this->disconnect();
+        return $result;
     }
 }

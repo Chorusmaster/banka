@@ -4,7 +4,7 @@
     include_once "./parts/header.php";
 
     $operations = new Operations();
-    $userdata = ($operations->getData())[0];
+    $userdata = ($operations->getData());
 ?>
 
 <main>
@@ -13,7 +13,7 @@
             <?php
                 $number = $userdata["card_number"];
                 $formatted_number = substr($number, 0, 4) . " " . substr($number, 4, 4) . " " . substr($number, 8, 4) . " " . substr($number, 12, 4);
-                $date = substr($userdata["expiration_date"], 5, 2) . "/" .substr($userdata["expiration_date"], 2, 2);
+                $date = substr($userdata["expiration_date"], 5, 2) . "/" . substr($userdata["expiration_date"], 2, 2);
 
                 echo '<div id="card_number">' . $formatted_number . '</div>';
                 echo '<div id="customer_name">' . $userdata["first_name"] . " " . $userdata["last_name"] . '</div>';
@@ -31,7 +31,7 @@
                             <label for="to">Čislo</label>
                             <input type="text" id="to" name="to">
                             <label for="amount">Suma</label>
-                            <input type="text" id="amount" name="amount">
+                            <input type="text" autocomplete="off" id="amount" name="amount">
                             <a href="index.php" class="transfer_button">Zrušiť</a>
                             <input class="transfer_button" type="submit" id="ok">
                         </form>
@@ -72,6 +72,16 @@
         ?>
     </div>
 </main>
+
+    <?php
+    include_once "./php/error_catch.php";
+    ?>
+
+    <script>
+        window.isTransfer = <?php echo(isset($_GET['transfer']));?>
+    </script>
+
+    <script src="./js/transfer_validation.js"></script>
 
 <?php
 include "./parts/footer.php";
